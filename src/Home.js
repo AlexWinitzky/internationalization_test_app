@@ -2,9 +2,20 @@ import React from 'react';
 import { translate, Trans } from 'react-i18next';
 
 class Home extends React.Component {
+  state = { toggle: false }
   
   changeLanguage = (lng) => {
+    if (this.state.toggle === true) {
+      lng = 'en'
+    } else {
+      lng = 'zh'
+    }
     this.props.i18n.changeLanguage(lng);  
+  }
+
+  toggleLang = () => {
+    this.setState({ toggle: !this.state.toggle})
+    this.changeLanguage()
   }
 
   render() {
@@ -12,8 +23,7 @@ class Home extends React.Component {
     return (
       <div>
         <h1>{t('Welcome to our Application')}</h1>
-        <button onClick={() => this.changeLanguage('zh')}>zh</button>
-        <button onClick={() => this.changeLanguage('en')}>en</button>
+        <button onClick={() => this.toggleLang()}>{this.state.toggle ? 'en' : '中文'}</button>
         <hr />
         {/* you can translate using the 'Trans' tag */}
         <Trans>
